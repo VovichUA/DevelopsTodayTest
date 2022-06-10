@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
 });
 
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'v1'], static function () {
@@ -35,8 +34,6 @@ Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'v1'], static functi
     Route::post('/comment', [CommentController::class, 'store']);
 
     Route::post('/vote', [VoteController::class, 'store']);
-});
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::post('logout', [AuthController::class, 'logout']);
 });
